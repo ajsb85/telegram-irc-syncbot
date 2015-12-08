@@ -50,7 +50,7 @@ module.exports = function(config, sendTo) {
                 message = match[1].trim();
             }
             var text = '<' + user + '>: ' + message;
-            sendTo.tg(channel, text.replace(/^\<(.*?)\>: \<(.*?)\>: /,'/$2 ').replace(/^\<(.*?)\>: /,'/$1 '));
+            sendTo.tg(channel, text.replace(/^<(.*?)>: <(.*?)>: /,'/$2 ').replace(/^<(.*?)>: /,'/$1 '));
         }
     });
 
