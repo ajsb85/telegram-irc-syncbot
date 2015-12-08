@@ -144,7 +144,7 @@ module.exports = function(config, sendTo) {
         if (msg.reply_to_message && msg.text) {
             text = msg.text.replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
             sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                '@' + getName(msg.reply_to_message.from, config) + ', ' + text);
+                '@' + getName(msg.reply_to_message.from, config) + ', ' + text.replace(/<xx>: /,''));
         } else if (msg.audio) {
             sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
                 '(Audio)');
