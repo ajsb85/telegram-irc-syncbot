@@ -1,6 +1,4 @@
-![Logo](/logo.png)
-
-A simple [Telegram](https://telegram.org/) ↔ IRC gateway.
+A [Telegram](https://telegram.org/) ↔ IRC gateway.
 
 [Changelog](https://fruitiex.org/blog/tag/teleirc/)
 
