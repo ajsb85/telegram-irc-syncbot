@@ -13,5 +13,5 @@ var sendTo = {
     }
 };
 
-var irc = require('./irc')(config, sendTo);
-var tg = require('./tg')(config, sendTo);
+var irc = require('./tg_irc')(config, sendTo);
+var tg = require('./tg_tg')(config, sendTo);
