@@ -12,7 +12,7 @@ var getNameHash = function(name) {
     }
 
     // returns negatives sometimes...
-    return Math.abs(hash % 14);
+    return Math.abs(hash % 13);
 };
 
 module.exports = function(name) {
@@ -33,17 +33,17 @@ module.exports = function(name) {
             return c.purple(name);
         case 7:
             return c.olive(name);
+        //case 8:
+        //    return c.yellow(name);
         case 8:
-            return c.yellow(name);
-        case 9:
             return c.lime(name);
-        case 10:
+        case 9:
             return c.teal(name);
-        case 11:
+        case 10:
             return c.cyan(name);
-        case 12:
+        case 11:
             return c.blue(name);
-        case 13:
+        case 12:
             return c.pink(name);
     }
 };
