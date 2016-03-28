@@ -53,7 +53,7 @@ module.exports = function(config, sendTo) {
             if (text.length>=1){
             	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h').replace(/-/g,'_');
             }
-            text=text.join(" ").replace(/^<(.*?)>: <(.*?)>: /,'/$2 ').replace(/^<(.*?)>: /,'/$1 ');
+            text=text.join(" ").replace(/^<(.*?)>: <(.*?)>: /,'/$2 ').replace(/^<(.*?)>: /,'/$1 ').replace(/^<(.*?)>:\n/,'');
             sendTo.tg(channel, text);
         }
     });
