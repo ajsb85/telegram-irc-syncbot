@@ -48,12 +48,15 @@ module.exports = function(config, sendTo) {
             if (match) {
                 message = match[1].trim();
             }
-            var text = '<' + user + '>: ' + message;
+            var text = '<' + user + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u000[0-9]+/g,'');
             text = text.split(" ");
             if (text.length>=1){
             	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h').replace(/-/g,'_');
             }
-            text=text.join(" ").replace(/^<(.*?)>: <(.*?)>: /,'/$2 ').replace(/^<(.*?)>: /,'/$1 ').replace(/^<(.*?)>:\n/,'');
+            text=text.join(" ")
+            .replace(/^<.*?>: <[0-9,]*(.*?)>: /,'/$1 ')
+            .replace(/^<(.*?)>: /,'/$1 ')
+            .replace(/^<(.*?)>:\n/,'');
             sendTo.tg(channel, text);
         }
     });
