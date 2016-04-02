@@ -256,6 +256,6 @@ module.exports = function(config, sendTo) {
             return;
         }
 
-        tg.sendMessage(channel.tgChatId, msg);
+        tg.sendMessage(channel.tgChatId, msg, {parse_mode: "Markdown"});
     };
 };
