@@ -29,7 +29,7 @@ Make sure you've installed Node.js.
    see all messages in your group (NOTE on usage: bot name is preceded by @ sign
    and 'Disable' is case-sensitive)
 5. Edit the default config `$EDITOR ~/.teleirc/config.js`
-6. Run `teleirc`
+6. Run `node node_modules/.bin/supervisor -- --expose-gc teleirc.js`
 7. Invite your bot to any Telegram groups you've configured it for
 8. Greet your bot once on each of your Telegram groups :tada:! This is needed
    to fetch (and store!) an internally used group ID, making communication
