@@ -48,6 +48,7 @@ module.exports = function(config, sendTo) {
             if (match) {
                 message = match[1].trim();
             }
+            if (message.indexOf("bit.ly")>=0){console.log(user+"|"+message);}
             var text = '<' + user + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\').replace(/\\/g,'');
             text = text.split(" ");
             if (text.length>=1){
