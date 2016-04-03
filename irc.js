@@ -48,7 +48,7 @@ module.exports = function(config, sendTo) {
             if (match) {
                 message = match[1].trim();
             }
-            var text = '<' + user + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u000[0-9]+/g,'').replace(/\\\\/g,'\\').replace(/\\/g,'');
+            var text = '<' + user + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\').replace(/\\/g,'');
             text = text.split(" ");
             if (text.length>=1){
             	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h').replace(/-/g,'_');
