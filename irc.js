@@ -21,6 +21,9 @@ var getChannels = function(arr) {
     return result;
 };
 
+var escapeHTML = function(arg){
+	return arg.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+}
 module.exports = function(config, sendTo) {
     config.ircOptions.channels = getChannels(config.channels);
 
@@ -48,15 +51,15 @@ module.exports = function(config, sendTo) {
             if (match) {
                 message = match[1].trim();
             }
-            if (message.indexOf("bit.ly")>=0){console.log(user+"|"+message);}
-            var text = '<' + user + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\').replace(/\\/g,'');
+            message = escapeHTML(message);
+            var text = '<' + user.replace(/_+$/g,'') + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\').replace(/\\/g,'');
             text = text.split(" ");
             if (text.length>=1){
             	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h').replace(/-/g,'_');
             }
             text=text.join(" ")
-            .replace(/^<.*?>: <[0-9,]*(.*?)>: /,'*$1*: ')
-            .replace(/^<(.*?)>: /,'*$1*: ')
+            .replace(/^<.*?>: <[0-9,]*(.*?)>: /,'<b>$1</b>: ')
+            .replace(/^<(.*?)>: /,'<b>$1</b>: ')
             .replace(/^<(.*?)>:\n/,'');
             sendTo.tg(channel, text);
         }
@@ -73,7 +76,7 @@ module.exports = function(config, sendTo) {
             if (match) {
                 message = match[1].trim();
             }
-            var text = '*' + user + ': ' + message + '*';
+            var text = '<b>' + user.replace(/_+$/g,'') + '</b>: <i>' + escapeHTML(message) + '</i>';
             sendTo.tg(channel, text);
         }
     });
