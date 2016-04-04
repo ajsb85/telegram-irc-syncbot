@@ -184,12 +184,12 @@ module.exports = function(config, sendTo) {
         } else if (msg.audio) {
             serveFile(msg.audio.file_id, config, tg, function(url) {
                 sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                    '(Audio, ' + msg.audio.duration + 's)' + url);
+                    '(sance, ' + msg.audio.duration + 's)' + url);
             });
         } else if (msg.document) {
             serveFile(msg.document.file_id, config, tg, function(url) {
                 sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                    '(Document) ' + url);
+                    '(uencu) ' + url);
             });
         } else if (msg.photo) {
             // pick the highest quality photo
@@ -197,7 +197,7 @@ module.exports = function(config, sendTo) {
 
             serveFile(photo.file_id, config, tg, function(url) {
                 sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                    '(Photo, ' + photo.width + 'x' + photo.height + ') ' +
+                    '(pixra, ' + photo.width + 'x' + photo.height + ') ' +
                     url + (msg.caption ? ' ' + msg.caption : ''));
             });
         } else if (msg.new_chat_photo) {
@@ -211,34 +211,34 @@ module.exports = function(config, sendTo) {
         } else if (msg.sticker) {
             serveFile(msg.sticker.file_id, config, tg, function(url) {
                 sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                    '(Sticker, ' + msg.sticker.width + 'x' + msg.sticker.height + ') ' + url);
+                    '(lanci, ' + msg.sticker.width + 'x' + msg.sticker.height + ') ' + url);
             });
         } else if (msg.video) {
             serveFile(msg.video.file_id, config, tg, function(url) {
                 sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                    '(Video, ' + msg.video.duration + 's)' +
+                    '(skina, ' + msg.video.duration + 's)' +
                     url + (msg.caption ? ' ' + msg.caption : ''));
             });
         } else if (msg.voice) {
             serveFile(msg.voice.file_id, config, tg, function(url) {
                 sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                    '(Voice, ' + msg.voice.duration + 's)' + url);
+                    '(se bacru, ' + msg.voice.duration + 's)' + url);
             });
         } else if (msg.contact) {
             sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                '(Contact, ' + '"' + msg.contact.first_name + ' ' +
+                '(se jikca, ' + '"' + msg.contact.first_name + ' ' +
                 msg.contact.last_name + '", ' +
                 msg.contact.phone_number + ')');
         } else if (msg.location) {
             sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                '(Location, ' + 'lon: ' + msg.location.longitude +
+                '(stuzi, ' + 'lon: ' + msg.location.longitude +
                               ', lat: ' + msg.location.latitude + ')');
         } else if (msg.new_chat_participant) {
-            sendTo.irc(channel.ircChan, getName(msg.new_chat_participant, config) +
-                ' was added by: ' + getName(msg.from, config));
+            sendTo.irc(channel.ircChan, "" + getName(msg.new_chat_participant, config) +
+                ' pu se jmina la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
         } else if (msg.left_chat_participant) {
-            sendTo.irc(channel.ircChan, getName(msg.left_chat_participant, config) +
-                ' was removed by: ' + getName(msg.from, config));
+            sendTo.irc(channel.ircChan, "" + getName(msg.left_chat_participant, config) +
+                ' pu se vimcu la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
         } else {
             text = msg.text.replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
             sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' + text);
