@@ -59,7 +59,7 @@ module.exports = function(config, sendTo) {
             }
             text=text.join(" ")
             .replace(/^<.*?>: <[0-9,]*(.*?)>: /,'<b>$1</b>: ')
-            .replace(/^<.*?>: &lt;[0-9,]*(.*?)&gt;: /,'<b>$1</b>: ')
+            .replace(/^<.*?>: &lt;[0-9,]*(.*?)&gt;: /,'<$1>: ')
             .replace(/^<(.*?)>: /,'<b>$1</b>: ')
             .replace(/^<(.*?)>:\n/,'');
             sendTo.tg(channel, text);
