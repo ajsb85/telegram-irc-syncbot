@@ -234,11 +234,11 @@ module.exports = function(config, sendTo) {
                 '(stuzi, ' + 'lon: ' + msg.location.longitude +
                               ', lat: ' + msg.location.latitude + ')');
         } else if (msg.new_chat_participant) {
-            sendTo.irc(channel.ircChan, "" + getName(msg.new_chat_participant, config) +
-                ' pu se jmina la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
+            sendTo.irc(channel.ircChan, "la\'o zoi." + getName(msg.new_chat_participant, config) +
+                '.zoi. pu se jmina la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
         } else if (msg.left_chat_participant) {
-            sendTo.irc(channel.ircChan, "" + getName(msg.left_chat_participant, config) +
-                ' pu se vimcu la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
+            sendTo.irc(channel.ircChan, "la\'o zoi." + getName(msg.left_chat_participant, config) +
+                'zoi. pu se vimcu la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
         } else {
             text = msg.text.replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
             sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' + text);
