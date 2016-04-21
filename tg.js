@@ -238,7 +238,7 @@ module.exports = function(config, sendTo) {
                 '.zoi. pu se jmina la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
         } else if (msg.left_chat_participant) {
             sendTo.irc(channel.ircChan, "la\'o zoi." + getName(msg.left_chat_participant, config) +
-                'zoi. pu se vimcu la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
+                '.zoi. pu se vimcu la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");
         } else {
             text = msg.text.replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
             sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' + text);
