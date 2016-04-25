@@ -46,6 +46,8 @@ module.exports = function(config, sendTo) {
         if (!channel) {
             return;
         }
+        if (message==='* Topic for channel undefined') return;
+        if (message.indexOf("* zbagamumble")===0) return;
         var match = config.hlRegexp.exec(message);
         if (match || config.ircRelayAll) {
             if (match) {

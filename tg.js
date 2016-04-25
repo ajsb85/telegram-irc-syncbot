@@ -242,7 +242,6 @@ module.exports = function(config, sendTo) {
         }
     });
     sendTo.tg = function(channel, msg) {
-        if (msg==='* Topic for channel undefined') return;
         console.log('  >> relaying to TG: ' + msg);
 
         if (!channel.tgChatId) {
