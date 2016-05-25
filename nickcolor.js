@@ -18,32 +18,30 @@ var getNameHash = function(name) {
 module.exports = function(name) {
     switch (getNameHash(name)) {
         case 0:
-            return c.white(name);
-        case 1:
             return c.silver(name);
-        case 2:
+        case 1:
             return c.navy(name);
-        case 3:
+        case 2:
             return c.green(name);
-        case 4:
+        case 3:
             return c.red(name);
-        case 5:
+        case 4:
             return c.brown(name);
-        case 6:
+        case 5:
             return c.purple(name);
-        case 7:
+        case 6:
             return c.olive(name);
-        //case 8:
+        //case 7:
         //    return c.yellow(name);
-        case 8:
+        case 7:
             return c.lime(name);
-        case 9:
+        case 8:
             return c.teal(name);
-        case 10:
+        case 9:
             return c.cyan(name);
-        case 11:
+        case 10:
             return c.blue(name);
-        case 12:
+        case 11:
             return c.pink(name);
     }
 };
