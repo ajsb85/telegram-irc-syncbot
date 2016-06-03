@@ -42,6 +42,7 @@
       messageSplit: 512,
       encoding: ''
     }",
-    "TELEGRAMBOT_ircRelayAll": "true"
+    "TELEGRAMBOT_ircRelayAll": "true",
+    "HEROKU_URL": "heroku url of this repo"
     }
 }
