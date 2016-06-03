@@ -41,11 +41,12 @@ module.exports = function() {
         config.channels = [JSON.parse(process.env['TELEGRAMBOT_channels'])];
         config.ircOptions = JSON.parse(process.env['TELEGRAMBOT_ircOptions']);
         config.ircRelayAll = process.env['TELEGRAMBOT_ircRelayAll'];
+        console.log("YYYYYYYY");
     }
     catch(e){
         
     }
     config = _.defaults(config, defaultConfig);
-
+    console.log("YYYY " + JSON.stringify(config.channels));
     return config;
 };
