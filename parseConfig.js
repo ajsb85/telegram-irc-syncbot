@@ -38,8 +38,8 @@ module.exports = function() {
         config.nameFormat = process.env['TELEGRAMBOT_nameFormat'];
         config.ircNick = process.env['TELEGRAMBOT_ircNick'];
         config.ircServer = process.env['TELEGRAMBOT_ircServer'];
-        config.channels = process.env['TELEGRAMBOT_channels'];
-        config.ircOptions = process.env['TELEGRAMBOT_ircOptions'];
+        config.channels = [JSON.parse(process.env['TELEGRAMBOT_channels'])];
+        config.ircOptions = JSON.parse(process.env['TELEGRAMBOT_ircOptions']);
         config.ircRelayAll = process.env['TELEGRAMBOT_ircRelayAll'];
     }
     catch(e){
