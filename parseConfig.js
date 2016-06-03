@@ -46,7 +46,7 @@ module.exports = function() {
     catch(e){
         
     }
-    //config = _.defaults(config, defaultConfig);
+    config = _.defaults(config, defaultConfig);
     console.log("YYYY " + JSON.stringify([JSON.parse(process.env['TELEGRAMBOT_channels'])]));
     return config;
 };
