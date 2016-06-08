@@ -16,6 +16,7 @@ var sendTo = {
 var irc = require('./irc')(config, sendTo);
 var tg = require('./tg')(config, sendTo);
 
+/*
 var herokuURL = process.env.HEROKU_URL
 if (herokuURL) {
   var request = require('request')
@@ -26,3 +27,4 @@ if (herokuURL) {
     request(herokuURL).pipe(process.stdout)
   }, 5 * 60 * 1000)
 }
+*/
