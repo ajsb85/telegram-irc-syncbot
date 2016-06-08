@@ -26,19 +26,20 @@ module.exports = function() {
                       'generate a default config.');*/
 	    try {
 	        config.tgToken = process.env['TELEGRAMBOT_tgToken'];
-	        config.sendTopic = process.env['TELEGRAMBOT_sendTopic'];
-	        config.showMedia = process.env['TELEGRAMBOT_showMedia'];
-	        config.mediaRandomLenght = process.env['TELEGRAMBOT_mediaRandomLenght'];
-	        config.maxMsgAge = process.env['TELEGRAMBOT_maxMsgAge'];
-	        config.httpPort = process.env['TELEGRAMBOT_httpPort'];
-	        config.httpLocation = process.env['TELEGRAMBOT_httpLocation'];
-	        config.nickcolor = process.env['TELEGRAMBOT_nickcolor'];
-	        config.nameFormat = process.env['TELEGRAMBOT_nameFormat'];
-	        config.ircNick = process.env['TELEGRAMBOT_ircNick'];
-	        config.ircServer = process.env['TELEGRAMBOT_ircServer'];
+	        config.sendTopic = true;//process.env['TELEGRAMBOT_sendTopic'];
+	        config.showMedia = false;//process.env['TELEGRAMBOT_showMedia'];
+	        config.mediaRandomLength = 8;//process.env['TELEGRAMBOT_mediaRandomLenght'];
+	        config.maxMsgAge = 86400;//process.env['TELEGRAMBOT_maxMsgAge'];
+	        config.httpPort = 9091;//process.env['TELEGRAMBOT_httpPort'];
+	        config.httpLocation = 'http://vrici.lojban.org:9091';//process.env['TELEGRAMBOT_httpLocation'];
+	        config.nickcolor = true;//process.env['TELEGRAMBOT_nickcolor'];
+	        config.nameFormat = '%username%';//process.env['TELEGRAMBOT_nameFormat'];
+	        config.usernameFallbackFormat = '%firstName% %lastName%';
+	        config.ircNick = 'ttttt';//process.env['TELEGRAMBOT_ircNick'];
+	        config.ircServer = 'irc.freenode.net';//process.env['TELEGRAMBOT_ircServer'];
 	        config.channels = [JSON.parse(process.env['TELEGRAMBOT_channels'])];
 	        config.ircOptions = JSON.parse(process.env['TELEGRAMBOT_ircOptions']);
-	        config.ircRelayAll = process.env['TELEGRAMBOT_ircRelayAll'];
+	        config.ircRelayAll = true;//process.env['TELEGRAMBOT_ircRelayAll'];
 	        console.log("YYYYYYYY");
 	    }
 	    catch(e){
@@ -47,6 +48,6 @@ module.exports = function() {
 	    }
    
     //}
-    console.log("YYYY " + config.channels);
+    console.log("YYYY " + config.tgToken);
     return config;
 };
