@@ -40,7 +40,7 @@ module.exports = function() {
 	        config.ircServer = 'irc.freenode.net';//process.env['TELEGRAMBOT_ircServer'];
 	        console.log("aaa" + process.env['CHANNELS']);
 	        console.log(JSON.parse("{\"test\": " + process.env['CHANNELS']+"}").test);
-	        config.channels = JSON.parse(process.env['CHANNELS']);
+	        config.channels = JSON.parse("{\"test\": " + process.env['CHANNELS']+"}").test;
 	        config.ircOptions = JSON.parse(process.env['OPTIONS']);
 	        config.ircRelayAll = true;//process.env['TELEGRAMBOT_ircRelayAll'];
 	    }
