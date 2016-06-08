@@ -28,7 +28,6 @@ module.exports = function() {
 	        config.sendTopic = true;//process.env['TELEGRAMBOT_sendTopic'];
 	        console.log("zzzzzzz");
 	        config.tgToken = process.env['TOKEN'];
-	        console.log("YYYYYYYY");
 	        config.showMedia = false;//process.env['TELEGRAMBOT_showMedia'];
 	        config.mediaRandomLength = 8;//process.env['TELEGRAMBOT_mediaRandomLenght'];
 	        config.maxMsgAge = 86400;//process.env['TELEGRAMBOT_maxMsgAge'];
@@ -39,6 +38,7 @@ module.exports = function() {
 	        config.usernameFallbackFormat = '%firstName% %lastName%';
 	        config.ircNick = 'ttttt';//process.env['TELEGRAMBOT_ircNick'];
 	        config.ircServer = 'irc.freenode.net';//process.env['TELEGRAMBOT_ircServer'];
+	        console.log("YYYYYYYY");
 	        config.channels = [JSON.parse(process.env['CHANNELS'])];
 	        config.ircOptions = JSON.parse(process.env['OPTIONS']);
 	        config.ircRelayAll = true;//process.env['TELEGRAMBOT_ircRelayAll'];
