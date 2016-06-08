@@ -18,12 +18,12 @@ if (process.argv[2] === '--genconfig') {
 module.exports = function() {
     var config;
 
-    try {
+    /*try {
         config = require(process.env.HOME + '/.teleirc/config.js');
     } catch (e) {
         console.log('ERROR while reading config:\n' + e + '\n\nPlease make sure ' +
                       'it exists and is valid. Run "teleirc --genconfig" to ' +
-                      'generate a default config.');
+                      'generate a default config.');*/
 	    try {
 	        config.tgToken = process.env['TELEGRAMBOT_tgToken'];
 	        config.sendTopic = process.env['TELEGRAMBOT_sendTopic'];
@@ -46,7 +46,7 @@ module.exports = function() {
              config = _.defaults(config, defaultConfig);
 	    }
    
-    }
+    //}
     console.log("YYYY " + JSON.stringify([JSON.parse(process.env['TELEGRAMBOT_channels'])]));
     return config;
 };
