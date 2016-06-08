@@ -25,6 +25,7 @@ module.exports = function() {
                       'it exists and is valid. Run "teleirc --genconfig" to ' +
                       'generate a default config.');*/
 	    try {
+	        console.log("YYYYYYYY");
 	        config.tgToken = process.env['TELEGRAMBOT_tgToken'];
 	        config.sendTopic = true;//process.env['TELEGRAMBOT_sendTopic'];
 	        config.showMedia = false;//process.env['TELEGRAMBOT_showMedia'];
@@ -40,7 +41,6 @@ module.exports = function() {
 	        config.channels = [JSON.parse(process.env['TELEGRAMBOT_channels'])];
 	        config.ircOptions = JSON.parse(process.env['TELEGRAMBOT_ircOptions']);
 	        config.ircRelayAll = true;//process.env['TELEGRAMBOT_ircRelayAll'];
-	        console.log("YYYYYYYY");
 	    }
 	    catch(e){
 	         //process.exit(1);
