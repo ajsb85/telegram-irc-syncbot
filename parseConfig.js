@@ -47,6 +47,6 @@ module.exports = function() {
 	    }
    
     //}
-    console.log("YYYY " + process.env['TELEGRAMBOT_channels']);
+    console.log("YYYY " + config.channels);
     return config;
 };
