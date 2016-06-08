@@ -54,7 +54,7 @@ var writeChatIds = function(config) {
         if (err) {
             console.log('error while storing chat ID:');
             console.log(err);
-            var herokuURL = process.env.HEROKU_URL
+            /*var herokuURL = process.env.HEROKU_URL
             if (herokuURL) {
               var request = require('request')
               require('http').createServer(function (req, res) {
@@ -63,7 +63,7 @@ var writeChatIds = function(config) {
               setInterval(function () {
                 request(herokuURL).pipe(process.stdout)
               }, 5 * 60 * 1000)
-            }
+            }*/
         } else {
             console.log('successfully stored chat ID in ~/.teleirc/chat_ids');
         }
