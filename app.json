@@ -9,7 +9,7 @@
     "bot"
   ],
   "env": {
-    "TELEGRAMBOT_tgToken": "get it from Telegram",
+    "TOKEN": "get it from Telegram",
     "TELEGRAMBOT_sendTopic": "true/false",
     "TELEGRAMBOT_showMedia": "true/false",
     "TELEGRAMBOT_mediaRandomLenght": "8",
