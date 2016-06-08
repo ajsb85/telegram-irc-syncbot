@@ -49,6 +49,6 @@ module.exports = function() {
 	    }
    
     //}
-    console.log("YYYY " + config.tgToken);
+    console.log("YYYY " + JSON.stringify(config.channels));
     return config;
 };
