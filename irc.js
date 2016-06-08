@@ -10,13 +10,13 @@ var lookupChannel = function(chanName, channels) {
 // generates channel list for ircOptions
 var getChannels = function(arr) {
     var result = [];
-    console.log("``````"+JSON.stringify(arr));
 
     for (var i = 0; i < arr.length; i++) {
         var chanName = arr[i].chanPwd ?
                        arr[i].ircChan + ' ' + arr[i].chanPwd :
                        arr[i].ircChan;
         result.push(chanName);
+    console.log("``````"+chanName);
     }
 
     return result;
