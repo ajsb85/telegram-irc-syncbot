@@ -38,7 +38,7 @@ module.exports = function() {
 	        config.usernameFallbackFormat = '%firstName% %lastName%';
 	        config.ircNick = 'ttttt';//process.env['TELEGRAMBOT_ircNick'];
 	        config.ircServer = 'irc.freenode.net';//process.env['TELEGRAMBOT_ircServer'];
-	        console.log("--------" + JSON.stringify([JSON.parse(process.env['CHANNELS'])]));
+	        console.log("--------" + [JSON.parse(process.env['CHANNELS'])][0]);
 	        config.channels = [JSON.parse(process.env['CHANNELS'])];
 	        config.ircOptions = JSON.parse(process.env['OPTIONS']);
 	        config.ircRelayAll = true;//process.env['TELEGRAMBOT_ircRelayAll'];
