@@ -24,29 +24,29 @@ module.exports = function() {
         console.log('ERROR while reading config:\n' + e + '\n\nPlease make sure ' +
                       'it exists and is valid. Run "teleirc --genconfig" to ' +
                       'generate a default config.');
-    //process.exit(1);
+	    try {
+	        config.tgToken = process.env['TELEGRAMBOT_tgToken'];
+	        config.sendTopic = process.env['TELEGRAMBOT_sendTopic'];
+	        config.showMedia = process.env['TELEGRAMBOT_showMedia'];
+	        config.mediaRandomLenght = process.env['TELEGRAMBOT_mediaRandomLenght'];
+	        config.maxMsgAge = process.env['TELEGRAMBOT_maxMsgAge'];
+	        config.httpPort = process.env['TELEGRAMBOT_httpPort'];
+	        config.httpLocation = process.env['TELEGRAMBOT_httpLocation'];
+	        config.nickcolor = process.env['TELEGRAMBOT_nickcolor'];
+	        config.nameFormat = process.env['TELEGRAMBOT_nameFormat'];
+	        config.ircNick = process.env['TELEGRAMBOT_ircNick'];
+	        config.ircServer = process.env['TELEGRAMBOT_ircServer'];
+	        config.channels = [JSON.parse(process.env['TELEGRAMBOT_channels'])];
+	        config.ircOptions = JSON.parse(process.env['TELEGRAMBOT_ircOptions']);
+	        config.ircRelayAll = process.env['TELEGRAMBOT_ircRelayAll'];
+	        console.log("YYYYYYYY");
+	    }
+	    catch(e){
+	         //process.exit(1);
+             config = _.defaults(config, defaultConfig);
+	    }
+   
     }
-    try {
-        config.tgToken = process.env['TELEGRAMBOT_tgToken'];
-        config.sendTopic = process.env['TELEGRAMBOT_sendTopic'];
-        config.showMedia = process.env['TELEGRAMBOT_showMedia'];
-        config.mediaRandomLenght = process.env['TELEGRAMBOT_mediaRandomLenght'];
-        config.maxMsgAge = process.env['TELEGRAMBOT_maxMsgAge'];
-        config.httpPort = process.env['TELEGRAMBOT_httpPort'];
-        config.httpLocation = process.env['TELEGRAMBOT_httpLocation'];
-        config.nickcolor = process.env['TELEGRAMBOT_nickcolor'];
-        config.nameFormat = process.env['TELEGRAMBOT_nameFormat'];
-        config.ircNick = process.env['TELEGRAMBOT_ircNick'];
-        config.ircServer = process.env['TELEGRAMBOT_ircServer'];
-        config.channels = [JSON.parse(process.env['TELEGRAMBOT_channels'])];
-        config.ircOptions = JSON.parse(process.env['TELEGRAMBOT_ircOptions']);
-        config.ircRelayAll = process.env['TELEGRAMBOT_ircRelayAll'];
-        console.log("YYYYYYYY");
-    }
-    catch(e){
-        
-    }
-    config = _.defaults(config, defaultConfig);
     console.log("YYYY " + JSON.stringify([JSON.parse(process.env['TELEGRAMBOT_channels'])]));
     return config;
 };
