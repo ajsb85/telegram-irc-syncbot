@@ -16,7 +16,7 @@ if (process.argv[2] === '--genconfig') {
 }
 
 module.exports = function() {
-    var config;
+    var config={};
 
     /*try {
         config = require(process.env.HOME + '/.teleirc/config.js');
