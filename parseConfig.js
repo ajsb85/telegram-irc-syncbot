@@ -25,8 +25,8 @@ module.exports = function() {
                       'it exists and is valid. Run "teleirc --genconfig" to ' +
                       'generate a default config.');*/
 	    try {
-	        console.log("YYYYYYYY");
 	        config.tgToken = process.env['TELEGRAMBOT_tgToken'];
+	        console.log("YYYYYYYY");
 	        config.sendTopic = true;//process.env['TELEGRAMBOT_sendTopic'];
 	        config.showMedia = false;//process.env['TELEGRAMBOT_showMedia'];
 	        config.mediaRandomLength = 8;//process.env['TELEGRAMBOT_mediaRandomLenght'];
