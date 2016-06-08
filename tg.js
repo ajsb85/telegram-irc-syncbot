@@ -16,7 +16,7 @@ var readChatIds = function(arr) {
 
     var idMissing = false;
     try {
-        var json = JSON.parse(fs.readFileSync(process.env.HOME + '/.teleirc/chat_ids'));
+        var json = process.env['CHATID'] || JSON.parse(fs.readFileSync(process.env.HOME + '/.teleirc/chat_ids'));
         for (var i = 0; i < arr.length; i++) {
             var key = arr[i].tgGroup;
             if (key in json) {
