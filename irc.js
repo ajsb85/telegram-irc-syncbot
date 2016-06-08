@@ -18,6 +18,7 @@ var getChannels = function(arr) {
         result.push(chanName);
     }
 
+    console.log(JSON.stringify(result));
     return result;
 };
 
