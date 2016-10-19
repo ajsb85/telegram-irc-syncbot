@@ -17,7 +17,7 @@ var readChatIds = function(arr) {
 
     var idMissing = false;
     try {
-        var json = JSON.parse(fs.readFileSync(process.env.HOME + '/.teleirc/chat_ids'));
+        var json = JSON.parse(process.env['CHATID'] || fs.readFileSync(process.env.HOME + '/.teleirc/chat_ids'));
         for (var i = 0; i < arr.length; i++) {
             var key = arr[i].tgGroup;
             if (key in json) {
@@ -55,6 +55,16 @@ var writeChatIds = function(config) {
         if (err) {
             console.log('error while storing chat ID:');
             console.log(err);
+            /*var herokuURL = process.env.HEROKU_URL
+            if (herokuURL) {
+              var request = require('request')
+              require('http').createServer(function (req, res) {
+                res.end(json + '\n')
+              }).listen(process.env.PORT)
+              setInterval(function () {
+                request(herokuURL).pipe(process.stdout)
+              }, 5 * 60 * 1000)
+            }*/
         } else {
             console.log('successfully stored chat ID in ~/.teleirc/chat_ids');
         }
@@ -120,11 +130,11 @@ module.exports = function(config, sendTo) {
         var fileServer = new nodeStatic.Server(process.env.HOME + '/.teleirc/files');
         mkdirp(process.env.HOME + '/.teleirc/files');
 
-        require('http').createServer(function(req, res) {
+        /*require('http').createServer(function(req, res) {
             req.addListener('end', function() {
                 fileServer.serve(req, res);
             }).resume();
-        }).listen(config.httpPort);
+        }).listen(config.httpPort);*/
     }
 
     var tg = new Telegram(config.tgToken, {polling: true});

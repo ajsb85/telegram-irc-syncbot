@@ -17,6 +17,7 @@ var getChannels = function(arr) {
                        arr[i].ircChan + ' ' + arr[i].chanPwd :
                        arr[i].ircChan;
         result.push(chanName);
+    console.log("``````"+chanName);
     }
 
     return result;
