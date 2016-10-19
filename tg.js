@@ -6,6 +6,7 @@ var nodeStatic = require('node-static');
 var mkdirp = require('mkdirp');
 var crypto = require('crypto');
 var nickcolor = require('./nickcolor');
+var c = require('irc-colors');
 var myUser = {};
 
 // tries to read chat ids from a file
@@ -75,7 +76,6 @@ var getName = function(user, config) {
 
     // get rid of leading and trailing whitespace
     name = name.replace(/(^\s*)|(\s*$)/g, '');
-
     if (config.nickcolor) {
         return nickcolor(name);
     }
@@ -136,6 +136,7 @@ module.exports = function(config, sendTo) {
     readChatIds(config.channels);
 
     tg.on('message', function(msg) {
+        if(msg.chat.title==='1 - Scala') return;
         var age = Math.floor(Date.now() / 1000) - msg.date;
         if (config.maxMsgAge && age > config.maxMsgAge) {
             return console.log('skipping ' + age + ' seconds old message! ' +
@@ -145,7 +146,6 @@ module.exports = function(config, sendTo) {
         var channel = config.channels.filter(function(channel) {
             return channel.tgGroup === msg.chat.title;
         })[0];
-
         if (!channel) {
             return;
         }
@@ -171,6 +171,20 @@ module.exports = function(config, sendTo) {
             return;
         }
         var text;
+        var repl='';
+        if (msg.reply_to_message && msg.reply_to_message.text) {//ToDo: quote images
+          var replyName = getName(msg.reply_to_message.from, config);
+          var txt = msg.reply_to_message.text.split(": ");
+          if (c.stripColorsAndStyle(replyName) === 'lojbanbot'){
+            try{
+              repl = '> \"<' + txt[0] + '> ' + '' + txt.slice(1).join(": ").replace(/\n+/g,'\"\n> \"<' + txt[0] + '> ') + "\"\n";
+            }catch(e){}
+          } else {
+            try{
+              repl = '> \"<' + replyName + '> ' + '' + txt.join(": ").replace(/\n+/g,'\"\n> <' + txt[0] + '> ')  + "\"\n";
+            }catch(e){}
+          }
+        }
         if (msg.reply_to_message && msg.text) {
             var replyName;
             if (msg.reply_to_message.from.username == myUser.username) {
@@ -178,17 +192,18 @@ module.exports = function(config, sendTo) {
             } else {
                 replyName = getName(msg.reply_to_message.from, config);
             }
-            text = msg.text.replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
-            sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
-                '@' + replyName + ', ' + text);
+            if (c.stripColorsAndStyle(replyName) === 'lojbanbot'){replyName = '';}else{replyName +=': '}
+            text = (msg.text||'').replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
+            sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
+                '' + replyName + text);
         } else if (msg.audio) {
             serveFile(msg.audio.file_id, config, tg, function(url) {
-                sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+                sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                     '(sance, ' + msg.audio.duration + 's)' + url);
             });
         } else if (msg.document) {
             serveFile(msg.document.file_id, config, tg, function(url) {
-                sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+                sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                     '(uencu) ' + url);
             });
         } else if (msg.photo) {
@@ -196,54 +211,54 @@ module.exports = function(config, sendTo) {
             var photo = msg.photo[msg.photo.length - 1];
 
             serveFile(photo.file_id, config, tg, function(url) {
-                sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+                sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                     '(pixra, ' + photo.width + 'x' + photo.height + ') ' +
-                    url + (msg.caption ? ' ' + msg.caption : ''));
+                    url + (msg.caption ? ' ' + msg.caption : '') + (msg.text ? ' ' + msg.text : ''));
             });
         } else if (msg.new_chat_photo) {
             // pick the highest quality photo
             var chatPhoto = msg.new_chat_photo[msg.new_chat_photo.length - 1];
 
             serveFile(chatPhoto.file_id, config, tg, function(url) {
-                sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+                sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                     '(New chat photo, ' + chatPhoto.width + 'x' + chatPhoto.height + ') ' + url);
             });
         } else if (msg.sticker) {
             serveFile(msg.sticker.file_id, config, tg, function(url) {
-                sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+                sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                     '(lanci, ' + msg.sticker.width + 'x' + msg.sticker.height + ') ' + url);
             });
         } else if (msg.video) {
             serveFile(msg.video.file_id, config, tg, function(url) {
-                sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+                sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                     '(skina, ' + msg.video.duration + 's)' +
-                    url + (msg.caption ? ' ' + msg.caption : ''));
+                    url + (msg.caption ? ' ' + msg.caption : '')+ (msg.text ? ' ' + msg.text : ''));
             });
         } else if (msg.voice) {
             serveFile(msg.voice.file_id, config, tg, function(url) {
-                sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+                sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                     '(se bacru, ' + msg.voice.duration + 's)' + url);
             });
         } else if (msg.contact) {
-            sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+            sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                 '(se jikca, ' + '"' + msg.contact.first_name + ' ' +
                 msg.contact.last_name + '", ' +
                 msg.contact.phone_number + ')');
         } else if (msg.location) {
-            sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' +
+            sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                 '(stuzi, ' + 'lon: ' + msg.location.longitude +
                               ', lat: ' + msg.location.latitude + ')');
-        /*} else if (msg.new_chat_participant) {
-            sendTo.irc(channel.ircChan, "la\'o zoi." + getName(msg.new_chat_participant, config) +
+        } else if (msg.new_chat_participant) {
+            /*sendTo.irc(channel.ircChan, "la\'o zoi." + getName(msg.new_chat_participant, config) +
                 '.zoi. pu se jmina la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");*/
         } else {
-            text = msg.text.replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
-            sendTo.irc(channel.ircChan, '<' + getName(msg.from, config) + '>: ' + text);
+            text = (msg.text||'').replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ').replace(/^@[0-9]+lojbanbot, /,'');
+            sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' + text);
         }
     });
     sendTo.tg = function(channel, msg) {
-        console.log('  >> relaying to TG: ' + msg);
-
+        if (msg==='* Topic for channel undefined') return;
+        if (msg.indexOf("* zbagamumble")===0) return;
         if (!channel.tgChatId) {
             var err = 'ERROR: No chat_id set! Add me to a Telegram group ' +
                       'and say hi so I can find your group\'s chat_id!';

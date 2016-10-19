@@ -12,7 +12,7 @@ var getNameHash = function(name) {
     }
 
     // returns negatives sometimes...
-    return Math.abs(hash % 13);
+    return Math.abs(hash % 12);
 };
 
 module.exports = function(name) {

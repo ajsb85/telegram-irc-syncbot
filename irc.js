@@ -1,5 +1,6 @@
 var Irc = require('irc');
 var tg = require('./tg');
+var ircolors = require('irc-colors');
 
 var lookupChannel = function(chanName, channels) {
     return channels.filter(function(channel) {
@@ -47,23 +48,28 @@ module.exports = function(config, sendTo) {
             return;
         }
         if (message==='* Topic for channel undefined') return;
+        if (message.indexOf("* zbagamumble")>=-1) console.log(message);
         if (message.indexOf("* zbagamumble")===0) return;
         var match = config.hlRegexp.exec(message);
         if (match || config.ircRelayAll) {
             if (match) {
-                message = match[1].trim();
+                message = match[1];
             }
-            message = escapeHTML(message);
-            var text = '<' + user.replace(/_+$/g,'') + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\').replace(/\\/g,'');
+            message = escapeHTML(ircolors.stripColorsAndStyle(message)).replace("\\u00[0-9A-F]{2,2}","");
+            var text = '<' + user.replace(/_+$/g,'') + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\');
             text = text.split(" ");
             if (text.length>=1){
             	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h').replace(/-/g,'_');
             }
+            // console.log("```"+text);
             text=text.join(" ")
-            .replace(/^<.*?>: <[0-9,]*(.*?)>: /,'<b>$1</b>: ')
-            .replace(/^<.*?>: &lt;[0-9,]*(.*?)&gt;: /,'<$1>: ')
+            .replace(/^<.*?>: <[0-9,]*([^\>]*?)>: /,'<b>$1</b>: ')
+            .replace(/^<.*?>: &lt;[0-9,]*([^\>]*?)&gt;: /,'<$1>: ')
             .replace(/^<(.*?)>: /,'<b>$1</b>: ')
             .replace(/^<(.*?)>:\n/,'');
+            // console.log("```"+text);
+            //```<gleki>:,&lt;^^^^&gt;,&lt;gleki&gt;:,uttering,it,is,not,hard                 
+            //```<b>^^^^&gt; &lt;gleki</b>: uttering it is not hard                           
             sendTo.tg(channel, text);
         }
     });
@@ -79,7 +85,9 @@ module.exports = function(config, sendTo) {
             if (match) {
                 message = match[1].trim();
             }
-            var text = '<b>' + user.replace(/_+$/g,'') + '</b>: <i>' + escapeHTML(message) + '</i>';
+            var mes = escapeHTML(message);
+            mes = mes.replace(/\b((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#/%=~_|$?!:,.]*[A-Z0-9+&@#/%=~_])\b/igm,'</i>$1<i>');
+            var text = '<b>' + user.replace(/_+$/g,'') + '</b>: <i>' + mes + '</i>';
             sendTo.tg(channel, text);
         }
     });
@@ -120,7 +128,7 @@ module.exports = function(config, sendTo) {
     };
 
     sendTo.irc = function(chanName, msg) {
-        console.log('  >> relaying to IRC: ' + msg);
+        //console.log('  >> relaying to IRC: ' + msg);
         irc.say(chanName, msg);
     };
 };
