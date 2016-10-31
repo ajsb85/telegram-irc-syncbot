@@ -67,7 +67,9 @@ module.exports = function(config, sendTo) {
             .replace(/^<.*?>: <[0-9,]*([^\>]*?)>: /,'<b>$1</b>: ')
             .replace(/^<.*?>: &lt;[0-9,]*([^\>]*?)&gt;: /,'<$1>: ')
             .replace(/^<(.*?)>: /,'<b>$1</b>: ')
-            .replace(/^<(.*?)>:\n/,'');
+            .replace(/^<(.*?)>:\n/,'')
+            //.replace(/(?<=(<b>.*?)'(?=(.*?<\/b>))/,'`')
+            ;
             // console.log("```"+text);
             //```<gleki>:,&lt;^^^^&gt;,&lt;gleki&gt;:,uttering,it,is,not,hard                 
             //```<b>^^^^&gt; &lt;gleki</b>: uttering it is not hard                           
