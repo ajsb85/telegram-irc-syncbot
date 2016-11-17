@@ -120,7 +120,21 @@ var serveFile = function(fileId, config, tg, callback) {
     mkdirp(process.env.HOME + '/.teleirc/files/' + randomString);
     tg.downloadFile(fileId, process.env.HOME + '/.teleirc/files/' +
                                    randomString).then(function(filePath) {
-        callback(config.httpLocation + '/' + randomString + '/' + path.basename(filePath));
+        if (path.extname(filePath)!=='.webp'){
+          callback(config.httpLocation + '/' + randomString + '/' + path.basename(filePath));
+        } else {
+          var webp=require('webp-converter');
+          var jpgname = process.env.HOME + '/.teleirc/files/' + randomString + '/' + path.basename(filePath,'.webp') + '.jpg';
+          webp.dwebp(filePath,jpgname,"-o",function(status)
+          {
+            if (status==='100'){
+            } else if (status==='Converted Successfully'){
+              callback(config.httpLocation + '/' + randomString + '/' + path.basename(filePath,'.webp') + '.jpg');
+            } else {
+              callback(config.httpLocation + '/' + randomString + '/' + path.basename(filePath));
+            }
+          });
+        }
     });
 };
 
