@@ -60,7 +60,7 @@ module.exports = function(config, sendTo) {
             var text = '<' + user.replace(/_+$/g,'') + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\');
             text = text.split(" ");
             if (text.length>=1){
-            	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h').replace(/-/g,'_');
+            	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h');
             }
             // console.log("```"+text);
             text=text.join(" ")
