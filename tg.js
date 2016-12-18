@@ -129,6 +129,7 @@ var serveFile = function(fileId, config, tg, callback) {
           {
             if (status==='100'){
             } else if (status==='Converted Successfully'){
+              fs.removeSync(filePath);
               callback(config.httpLocation + '/' + randomString + '/' + path.basename(filePath,'.webp') + '.jpg');
             } else {
               callback(config.httpLocation + '/' + randomString + '/' + path.basename(filePath));
