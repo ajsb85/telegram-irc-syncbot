@@ -56,8 +56,11 @@ module.exports = function(config, sendTo) {
             if (match) {
                 message = match[1];
             }
-            message = escapeHTML(ircolors.stripColorsAndStyle(message)).replace("\\u00[0-9A-F]{2,2}","");
-            var text = '<' + user.replace(/_+$/g,'') + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9]+/g,'').replace(/\\\\/g,'\\');
+            console.log("```"+message+"```");
+            message = escapeHTML(ircolors.stripColorsAndStyle(message.replace(/[[:cntrl:]](\d+,|)\d+/,""))).replace("\\u00[0-9A-F]{2,2}","");
+            console.log("2```"+message+"```");
+            var text = '<' + user.replace(/_+$/g,'') + '>: ' + JSON.stringify(message).replace(/^\"/,'').replace(/\"$/,'').replace(/\\u00[0-9abcdefABCDEF]+/g,'').replace(/\\\\/g,'\\');
+            console.log("3```"+text+"```");
             text = text.split(" ");
             if (text.length>=1){
             	text[0] = text[0].replace(/[\[\]]/g,'').replace(/[`']/g,'h');

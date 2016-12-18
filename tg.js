@@ -196,9 +196,13 @@ module.exports = function(config, sendTo) {
         }
         var text;
         var repl='';
+        try{console.log(msg.text);}catch(e){}
         if (msg.reply_to_message && msg.reply_to_message.text) {//ToDo: quote images
           var replyName = getName(msg.reply_to_message.from, config);
-          var txt = msg.reply_to_message.text.split(": ");
+          var txt = msg.reply_to_message.text;
+          console.log(txt.length + "|||" + txt);
+          if (txt.length>100){txt=txt.substring(0,99) + " ..."}
+          txt = txt.split(": ");
           if (c.stripColorsAndStyle(replyName) === 'lojbanbot'){
             try{
               repl = '> \"<' + txt[0] + '> ' + '' + txt.slice(1).join(": ").replace(/\n+/g,'\"\n> \"<' + txt[0] + '> ') + "\"\n";
@@ -218,6 +222,7 @@ module.exports = function(config, sendTo) {
             }
             if (c.stripColorsAndStyle(replyName) === 'lojbanbot'){replyName = '';}else{replyName +=': '}
             text = (msg.text||'').replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ');
+            //return ret.replace(/(.{190,250})(, |[ \.\"\/])/g,'$1$2\n');
             sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' +
                 '' + replyName + text);
         } else if (msg.audio) {
@@ -277,6 +282,7 @@ module.exports = function(config, sendTo) {
                 '.zoi. pu se jmina la\'o zoi.' + getName(msg.from, config)+".zoi. lo girzu pe la telegram");*/
         } else {
             text = (msg.text||'').replace(/\n/g , '\n<' + getName(msg.from, config) + '>: ').replace(/^@[0-9]+lojbanbot, /,'');
+            //return ret.replace(/(.{190,250})(, |[ \.\"\/])/g,'$1$2\n');
             sendTo.irc(channel.ircChan, repl + '<' + getName(msg.from, config) + '>: ' + text);
         }
     });
